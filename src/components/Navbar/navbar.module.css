@@ -1,0 +1,24 @@
+.menu {
+  list-style: none;
+  display: flex;
+  padding: 10px;
+  margin: 0 0 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.link {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 10px;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.link:global(.active) {
+  color: red;
+}
