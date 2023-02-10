@@ -1,17 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Navbar from './Navbar';
-import Home from 'pages/Home';
-import Movies from 'pages/Movies';
+import HomePage from 'pages/HomePage';
+import MoviesPage from 'pages/MoviesPage';
 
 export const App = () => {
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/movies" element={<MoviesPage />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </div>
   );

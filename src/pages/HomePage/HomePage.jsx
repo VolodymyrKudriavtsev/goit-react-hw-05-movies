@@ -1,0 +1,37 @@
+import { useEffect, useState } from 'react';
+
+import MoviesList from 'components/MoviesList';
+
+import { getTrendMovies } from 'services/movie-api';
+
+const HomePage = () => {
+  const [trendMovies, setTrendMovies] = useState([]); //!поменять на SearchParams??
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTrendMovies = async () => {
+      try {
+        setLoading(true);
+        const { results } = await getTrendMovies();
+        setTrendMovies([...results]);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTrendMovies();
+  }, []);
+
+  return (
+    <>
+      <h1>Trending today</h1>
+      {error && <p>Sorry! {error.message}</p>}
+      {loading && <p>Loading...</p>}
+      {Boolean(trendMovies.length) && <MoviesList movies={trendMovies} />}
+    </>
+  );
+};
+
+export default HomePage;
