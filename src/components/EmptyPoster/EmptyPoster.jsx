@@ -2,6 +2,7 @@ const EmrtyPoster = () => {
   return (
     <div
       style={{
+        marginRight: '10px',
         width: '300px',
         height: '450px',
         display: 'flex',

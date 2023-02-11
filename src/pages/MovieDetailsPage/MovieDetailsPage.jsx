@@ -18,7 +18,6 @@ const MovieDetailsPage = () => {
         try {
           setLoading(true);
           const data = await getMovieDetails(movieId);
-          console.log('data:', data);
           setMovieData(data);
         } catch (error) {
           setError(error);
@@ -37,7 +36,7 @@ const MovieDetailsPage = () => {
       {error ? (
         <p>Sorry! {error.message}</p>
       ) : (
-        <MovieInfo movieData={movieData} />
+        <MovieInfo data={movieData} id={movieId} />
       )}
     </>
   );
