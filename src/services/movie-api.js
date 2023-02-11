@@ -16,3 +16,8 @@ export const getFoundMovies = async query => {
   const { data } = await instance.get('/search/movie?', { params: { query } });
   return data;
 };
+
+export const getMovieDetails = async movieId => {
+  const { data } = await instance.get(`/movie/${movieId}?`);
+  return data;
+};

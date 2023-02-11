@@ -27,8 +27,8 @@ const HomePage = () => {
   return (
     <>
       <h1>Trending today</h1>
-      {error && <p>Sorry! {error.message}</p>}
       {loading && <p>Loading...</p>}
+      {error && <p>Sorry! {error.message}</p>}
       {Boolean(trendMovies.length) && <MoviesList movies={trendMovies} />}
     </>
   );

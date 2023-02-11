@@ -38,8 +38,8 @@ const MoviesPage = () => {
   return (
     <>
       <SearchForm onSubmit={onFormSubmit} />
-      {error && <p>Sorry! {error.message}</p>}
       {loading && <p>Loading...</p>}
+      {error && <p>Sorry! {error.message}</p>}
       {Boolean(founMovies.length) && <MoviesList movies={founMovies} />}
       {}
     </>

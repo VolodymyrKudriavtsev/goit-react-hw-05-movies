@@ -21,7 +21,7 @@ const SearchForm = ({ onSubmit }) => {
         onChange={handleChange}
         name="search"
         type="text"
-        autoComplete="off"
+        // autoComplete="off"
         autoFocus
         placeholder="Search movies"
         required
