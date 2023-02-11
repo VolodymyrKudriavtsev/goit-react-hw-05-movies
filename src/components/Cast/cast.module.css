@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.poster {
+  width: 138px;
+  margin-right: 10px;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-right: 10px;
+  width: 138px;
+  height: 175px;
+  background-color: #b0c4de;
+  color: #dcdcdc;
+  font-size: 20px;
+}

@@ -1,22 +1,10 @@
-const EmrtyPoster = () => {
-  return (
-    <div
-      style={{
-        marginRight: '10px',
-        width: '300px',
-        height: '450px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        fontSize: 30,
-        backgroundColor: '#B0C4DE',
-        color: '#DCDCDC',
-      }}
-    >
-      Sorry, there is no poster
-    </div>
-  );
+import PropTypes from 'prop-types';
+const EmrtyPoster = ({ className }) => {
+  return <div className={className}>Sorry, there is no poster</div>;
+};
+
+EmrtyPoster.propTypes = {
+  className: PropTypes.string,
 };
 
 export default EmrtyPoster;

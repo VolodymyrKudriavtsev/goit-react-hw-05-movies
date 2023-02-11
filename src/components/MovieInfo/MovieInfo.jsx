@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, Outlet } from 'react-router-dom';
 
 import EmptyPoster from 'components/EmptyPoster';
 
 import css from './movie-info.module.css';
 
-const MovieInfo = ({ data, id }) => {
+const MovieInfo = ({ data }) => {
   const {
     poster_path,
     original_title,
@@ -28,7 +29,7 @@ const MovieInfo = ({ data, id }) => {
             alt="Poster"
           />
         ) : (
-          <EmptyPoster />
+          <EmptyPoster className={css.empty} />
         )}
 
         <div>
@@ -47,18 +48,34 @@ const MovieInfo = ({ data, id }) => {
         </div>
       </div>
       <div className={css.more_info}>
-        <p>Additional informaiton</p>
+        <h4>Additional informaiton</h4>
         <ul>
-          <Link to={`/movies/${id}/cast`}>
+          <Link to="cast">
             <li>Cast</li>
           </Link>
-          <Link to={`/movies/${id}/reviews`}>
+          <Link to="reviews">
             <li>Reviews</li>
           </Link>
         </ul>
       </div>
+      <Outlet />
     </>
   );
+};
+
+MovieInfo.propTypes = {
+  data: PropTypes.shape({
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+      })
+    ),
+    original_title: PropTypes.string,
+    overview: PropTypes.string,
+    poster_path: PropTypes.string,
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number,
+  }),
 };
 
 export default MovieInfo;

@@ -14,7 +14,7 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     if (movieId) {
-      const fetchMovies = async () => {
+      const fetchMovieDetails = async () => {
         try {
           setLoading(true);
           const data = await getMovieDetails(movieId);
@@ -25,7 +25,7 @@ const MovieDetailsPage = () => {
           setLoading(false);
         }
       };
-      fetchMovies();
+      fetchMovieDetails();
     }
   }, [movieId]);
 
@@ -33,11 +33,7 @@ const MovieDetailsPage = () => {
     <>
       <button type="button">&#9668; Go back</button>
       {loading && <p>Loading...</p>}
-      {error ? (
-        <p>Sorry! {error.message}</p>
-      ) : (
-        <MovieInfo data={movieData} id={movieId} />
-      )}
+      {error ? <p>Sorry! {error.message}</p> : <MovieInfo data={movieData} />}
     </>
   );
 };

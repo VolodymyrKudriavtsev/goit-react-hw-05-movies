@@ -20,7 +20,7 @@ const MoviesPage = () => {
 
   useEffect(() => {
     if (query) {
-      const fetchMovies = async () => {
+      const fetchFoundMovies = async () => {
         try {
           setLoading(true);
           const { results } = await getFoundMovies(query);
@@ -31,7 +31,7 @@ const MoviesPage = () => {
           setLoading(false);
         }
       };
-      fetchMovies();
+      fetchFoundMovies();
     }
   }, [query]);
 
