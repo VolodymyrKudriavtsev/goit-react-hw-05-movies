@@ -5,7 +5,7 @@ import MoviesList from 'components/MoviesList';
 import { getTrendMovies } from 'services/movie-api';
 
 const HomePage = () => {
-  const [trendMovies, setTrendMovies] = useState([]); //!поменять на SearchParams??
+  const [trendMovies, setTrendMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

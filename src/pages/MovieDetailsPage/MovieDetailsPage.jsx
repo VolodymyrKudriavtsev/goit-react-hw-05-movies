@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import MovieDetails from 'components/MovieDetails';
@@ -11,6 +11,8 @@ const MovieDetailsPage = () => {
   const [movieData, setMovieData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (movieId) {
