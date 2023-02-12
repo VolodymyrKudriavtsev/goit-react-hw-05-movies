@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import MovieInfo from 'components/MovieInfo';
+import MovieDetails from 'components/MovieDetails';
 
 import { getMovieDetails } from 'services/movie-api';
 
@@ -33,7 +33,11 @@ const MovieDetailsPage = () => {
     <>
       <button type="button">&#9668; Go back</button>
       {loading && <p>Loading...</p>}
-      {error ? <p>Sorry! {error.message}</p> : <MovieInfo data={movieData} />}
+      {error ? (
+        <p>Sorry! {error.message}</p>
+      ) : (
+        <MovieDetails data={movieData} />
+      )}
     </>
   );
 };

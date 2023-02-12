@@ -3,21 +3,21 @@ import { Link, Outlet } from 'react-router-dom';
 
 import EmptyPoster from 'components/EmptyPoster';
 
-import css from './movie-info.module.css';
+import css from './movie-details.module.css';
 
-const MovieInfo = ({ data }) => {
+const MovieDetails = ({ data }) => {
   const {
     poster_path,
     original_title,
-    release_date = '',
+    release_date,
     vote_average,
     overview,
-    genres = [],
+    genres,
   } = data;
 
-  const releaseYear = release_date.slice(0, 4);
+  const releaseYear = release_date?.slice(0, 4);
   const userScore = (vote_average * 10).toFixed();
-  const genresNames = genres.map(genre => genre.name).join(' ');
+  const genresNames = genres?.map(genre => genre.name).join(' ');
 
   return (
     <>
@@ -39,7 +39,7 @@ const MovieInfo = ({ data }) => {
           <p>User Score: {userScore}%</p>
           <h2>Overview</h2>
           <p>{overview}</p>
-          {Boolean(genres.length) && (
+          {Boolean(genres?.length) && (
             <>
               <h3>Genres</h3>
               <p>{genresNames}</p>
@@ -63,7 +63,7 @@ const MovieInfo = ({ data }) => {
   );
 };
 
-MovieInfo.propTypes = {
+MovieDetails.propTypes = {
   data: PropTypes.shape({
     genres: PropTypes.arrayOf(
       PropTypes.shape({
@@ -78,4 +78,4 @@ MovieInfo.propTypes = {
   }),
 };
 
-export default MovieInfo;
+export default MovieDetails;
