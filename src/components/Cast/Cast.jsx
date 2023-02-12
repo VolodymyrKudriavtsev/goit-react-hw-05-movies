@@ -1,9 +1,34 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import EmptyPoster from 'components/EmptyPoster';
 import css from './cast.module.css';
 
-const Cast = ({ data }) => {
-  const elements = data.map(({ id, profile_path, name, character }) => (
+import { getMovieCast } from 'services/movie-api';
+
+const Cast = ({ movieId }) => {
+  const [castData, setCastData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (movieId) {
+      const fetchMoviCast = async () => {
+        try {
+          setLoading(true);
+          const { cast } = await getMovieCast(movieId);
+          setCastData(cast);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchMoviCast();
+    }
+  }, [movieId]);
+
+  const elements = castData.map(({ id, profile_path, name, character }) => (
     <li key={id} className={css.item}>
       {profile_path ? (
         <img
@@ -21,22 +46,21 @@ const Cast = ({ data }) => {
     </li>
   ));
 
-  return <ul>{elements}</ul>;
-};
-
-Cast.defaultProps = {
-  data: [],
+  return (
+    <>
+      {loading && <p>Loading...</p>}
+      {error && <p>Sorry! {error.message}</p>}
+      {Boolean(castData.length) ? (
+        <ul>{elements}</ul>
+      ) : (
+        `We don't have cast for this movie.`
+      )}
+    </>
+  );
 };
 
 Cast.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      profile_path: PropTypes.string,
-      name: PropTypes.string,
-      character: PropTypes.string,
-    })
-  ),
+  movieId: PropTypes.string.isRequired,
 };
 
 export default Cast;

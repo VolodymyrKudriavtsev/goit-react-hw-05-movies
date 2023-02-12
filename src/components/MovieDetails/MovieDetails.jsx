@@ -1,81 +1,49 @@
 import PropTypes from 'prop-types';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-import EmptyPoster from 'components/EmptyPoster';
+import SingleMovie from 'components/SingleMovie';
 
-import css from './movie-details.module.css';
+import { getMovieDetails } from 'services/movie-api';
 
-const MovieDetails = ({ data }) => {
-  const {
-    poster_path,
-    original_title,
-    release_date,
-    vote_average,
-    overview,
-    genres,
-  } = data;
+const MovieDetails = ({ movieId }) => {
+  const [movieData, setMovieData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const releaseYear = release_date?.slice(0, 4);
-  const userScore = (vote_average * 10).toFixed();
-  const genresNames = genres?.map(genre => genre.name).join(' ');
+  // ! const navigate = useNavigate();  ???
+
+  useEffect(() => {
+    if (movieId) {
+      const fetchMovieDetails = async () => {
+        try {
+          setLoading(true);
+          const data = await getMovieDetails(movieId);
+          setMovieData(data);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchMovieDetails();
+    }
+  }, [movieId]);
 
   return (
     <>
-      <div className={css.info}>
-        {poster_path ? (
-          <img
-            className={css.poster}
-            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`}
-            alt="Poster"
-          />
-        ) : (
-          <EmptyPoster className={css.empty} />
-        )}
+      <button type="button">&#9668; Go back</button>
+      {loading && <p>Loading...</p>}
+      {error && <p>Sorry! {error.message}</p>}
+      <SingleMovie data={movieData} />
 
-        <div>
-          <h1>
-            {original_title} {release_date && `(${releaseYear})`}
-          </h1>
-          <p>User Score: {userScore}%</p>
-          <h2>Overview</h2>
-          <p>{overview}</p>
-          {Boolean(genres?.length) && (
-            <>
-              <h3>Genres</h3>
-              <p>{genresNames}</p>
-            </>
-          )}
-        </div>
-      </div>
-      <div className={css.more_info}>
-        <h4>Additional informaiton</h4>
-        <ul>
-          <Link to="cast">
-            <li>Cast</li>
-          </Link>
-          <Link to="reviews">
-            <li>Reviews</li>
-          </Link>
-        </ul>
-      </div>
       <Outlet />
     </>
   );
 };
 
 MovieDetails.propTypes = {
-  data: PropTypes.shape({
-    genres: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-      })
-    ),
-    original_title: PropTypes.string,
-    overview: PropTypes.string,
-    poster_path: PropTypes.string,
-    release_date: PropTypes.string,
-    vote_average: PropTypes.number,
-  }),
+  movieId: PropTypes.string.isRequired,
 };
 
 export default MovieDetails;
