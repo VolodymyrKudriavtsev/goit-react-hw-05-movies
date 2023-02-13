@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+
 import EmptyPoster from 'components/EmptyPoster';
 
 import css from './single-movie.module.css';
 
-const SingleMovie = ({ data }) => {
+const SingleMovie = ({ data, from }) => {
   const {
     poster_path,
     original_title,
@@ -48,12 +49,16 @@ const SingleMovie = ({ data }) => {
       <div className={css.more_info}>
         <h4>Additional informaiton</h4>
         <ul>
-          <Link to="cast">
-            <li>Cast</li>
-          </Link>
-          <Link to="reviews">
-            <li>Reviews</li>
-          </Link>
+          <li>
+            <Link to="cast" state={{ from }}>
+              Cast
+            </Link>
+          </li>
+          <li>
+            <Link to="reviews" state={{ from }}>
+              Reviews
+            </Link>
+          </li>
         </ul>
       </div>
     </>

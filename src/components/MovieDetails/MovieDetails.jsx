@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import SingleMovie from 'components/SingleMovie';
@@ -11,7 +11,10 @@ const MovieDetails = ({ movieId }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // ! const navigate = useNavigate();  ???
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from;
 
   useEffect(() => {
     if (movieId) {
@@ -32,11 +35,12 @@ const MovieDetails = ({ movieId }) => {
 
   return (
     <>
-      <button type="button">&#9668; Go back</button>
+      <button type="button" onClick={() => navigate(from)}>
+        &#9668; Go back
+      </button>
       {loading && <p>Loading...</p>}
       {error && <p>Sorry! {error.message}</p>}
-      <SingleMovie data={movieData} />
-
+      <SingleMovie data={movieData} from={from} />
       <Outlet />
     </>
   );
