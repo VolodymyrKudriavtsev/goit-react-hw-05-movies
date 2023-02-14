@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const SearchForm = ({ onSubmit }) => {
+const SearchForm = ({ onSubmit, initialValue }) => {
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setSearch(initialValue);
+  }, [initialValue]);
 
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(search);
-    setSearch('');
   };
 
   const handleChange = e => {
@@ -31,7 +34,12 @@ const SearchForm = ({ onSubmit }) => {
   );
 };
 
+SearchForm.defaultProps = {
+  initialValue: '',
+};
+
 SearchForm.propTypes = {
+  initialValue: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

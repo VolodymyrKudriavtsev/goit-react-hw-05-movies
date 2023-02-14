@@ -41,7 +41,7 @@ const Movies = () => {
 
   return (
     <>
-      <SearchForm onSubmit={onFormSubmit} />
+      <SearchForm onSubmit={onFormSubmit} initialValue={query} />
       {loading && <p>Loading...</p>}
       {error && <p>Sorry! {error.message}</p>}
       {Boolean(foundMovies.length) && <MoviesList movies={foundMovies} />}

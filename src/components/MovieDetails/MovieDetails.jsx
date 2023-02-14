@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 
 import SingleMovie from 'components/SingleMovie';
 
@@ -41,7 +41,9 @@ const MovieDetails = ({ movieId }) => {
       {loading && <p>Loading...</p>}
       {error && <p>Sorry! {error.message}</p>}
       <SingleMovie data={movieData} from={from} />
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

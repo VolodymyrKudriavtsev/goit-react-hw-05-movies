@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-const MoviesList = ({ movies, state }) => {
+const MoviesList = ({ movies }) => {
   const location = useLocation();
 
   const elements = movies.map(({ id, title }) => (
